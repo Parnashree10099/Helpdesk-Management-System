@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpDesk | Support Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-icon">H</span>
+            <div>
+                <h1>HelpDesk</h1>
+                <p>Support Portal</p>
+            </div>
+        </div>
 
+        <div class="top-actions">
+            <span id="userLabel">Guest</span>
+            <button id="logoutBtn" class="secondary-btn hidden">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="loginSection" class="login-card">
+            <div class="login-heading">
+                <span class="eyebrow">WELCOME BACK</span>
+                <h2>Sign in to HelpDesk</h2>
+                <p>Manage your support tickets in one place.</p>
+            </div>
+
+            <form id="loginForm">
+                <label for="email">Email address</label>
+                <input id="email" type="email" placeholder="you@example.com" required>
+
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Enter your password" required>
+
+                <button type="submit" class="primary-btn">Sign in</button>
+                <p id="loginMessage" class="message" role="status"></p>
+            </form>
+        </section>
+
+        <section id="dashboardSection" class="hidden">
+            <div class="welcome-row">
+                <div>
+                    <span class="eyebrow">YOUR WORKSPACE</span>
+                    <h2>Support Dashboard</h2>
+                    <p>Track tickets and stay on top of updates.</p>
+                </div>
+                <button id="refreshBtn" class="secondary-btn">Refresh</button>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span>Total tickets</span>
+                    <strong id="totalTickets">0</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Open tickets</span>
+                    <strong id="openTickets">0</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Notifications</span>
+                    <strong id="notificationCount">0</strong>
+                </article>
+            </div>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Create a ticket</h3>
+                        <p>Describe the issue you need help with.</p>
+                    </div>
+                </div>
+
+                <form id="ticketForm" class="ticket-form">
+                    <div class="form-field">
+                        <label for="ticketTitle">Ticket title</label>
+                        <input id="ticketTitle" maxlength="200" required
+                               placeholder="Example: Unable to access my account">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option>Technical</option>
+                            <option>Billing</option>
+                            <option>Account</option>
+                            <option>Subscription</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="priority">Priority</label>
+                        <select id="priority">
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                            <option>Urgent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field full-width">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" required
+                                  placeholder="Explain the problem..."></textarea>
+                    </div>
+
+                    <div class="full-width">
+                        <button type="submit" class="primary-btn">Submit ticket</button>
+                        <p id="ticketMessage" class="message" role="status"></p>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Your tickets</h3>
+                        <p>View the current status of your support requests.</p>
+                    </div>
+                </div>
+
+                <div id="ticketList" class="ticket-list">
+                    <p class="empty-state">Your tickets will appear here.</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                                    <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Ticket Conversation</h3>
+                        <p>View messages and reply to your support tickets.</p>
+                    </div>
+                </div>
+
+                <div class="conversation-controls">
+                    <label for="conversationTicketId">Ticket ID</label>
+                    <input
+                        type="number"
+                        id="conversationTicketId"
+                        min="1"
+                        placeholder="Enter ticket ID"
+                    >
+                    <button type="button" id="loadMessagesBtn">
+                        Load Conversation
+                    </button>
+                </div>
+
+                <div id="messageList" class="message-list">
+                    <p class="empty-state">
+                        Enter a ticket ID to view its conversation.
+                    </p>
+                </div>
+
+                <form id="messageForm">
+                    <label for="messageText">Your message</label>
+                    <textarea
+                        id="messageText"
+                        rows="3"
+                        placeholder="Write your reply..."
+                        required
+                    ></textarea>
+                    <button type="submit">Send Reply</button>
+                    <p id="messageFeedback" class="message"></p>
+                </form>
+            </section>
+                        <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Ticket Attachments</h3>
+                        <p>Upload a file to an existing support ticket.</p>
+                    </div>
+                </div>
+
+                <form id="attachmentForm">
+                    <label for="attachmentTicketId">Ticket ID</label>
+                    <input
+                        type="number"
+                        id="attachmentTicketId"
+                        min="1"
+                        placeholder="Enter ticket ID"
+                        required
+                    >
+
+                    <label for="attachmentFile">Choose a file</label>
+                    <input
+                        type="file"
+                        id="attachmentFile"
+                        accept=".pdf,.png,.jpg,.jpeg,.txt"
+                        required
+                    >
+
+                    <button type="submit">Upload Attachment</button>
+                    <p id="attachmentFeedback" class="message"></p>
+                                        <h4>Uploaded Files</h4>
+                    <button type="button" id="loadAttachmentsBtn">
+                        View Attachments
+                    </button>
+
+                    <div id="attachmentList">
+                        <p class="empty-state">
+                            Click "View Attachments" to see uploaded files.
+                        </p>
+                    </div>
+                </form>
+            </section>
+                        <h3>Notifications</h3>
+                        <p>Recent updates about your tickets.</p>
+                    </div>
+                </div>
+
+                <div id="notificationList" class="notification-list">
+                    <p class="empty-state">No notifications loaded yet.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>HelpDesk Support Portal · Help is one step away.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
