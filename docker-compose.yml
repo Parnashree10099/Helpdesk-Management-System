@@ -1,0 +1,12 @@
+services:
+  helpdesk:
+    build: .
+    container_name: helpdesk_app
+    ports:
+      - "8000:8000"
+    environment:
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?Please set JWT_SECRET_KEY before starting the application}
+    volumes:
+      - ./helpdesk.db:/app/helpdesk.db
+      - ./uploads:/app/uploads
+    restart: unless-stopped
